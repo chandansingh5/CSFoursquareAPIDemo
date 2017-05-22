@@ -17,7 +17,7 @@ class DetailsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let selectedVenu = selectedVenu {
-            lblName.text = selectedVenu.name
+            lblName.text = "Name : "+selectedVenu.name!
             lblAddress.text = "Address : "+selectedVenu.address!
         }
         

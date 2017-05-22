@@ -70,12 +70,14 @@ extension SearchController :  UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfRowsInSection(section: section)
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Set up the SearchCells with data from the searchResults array
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! SearchCell
         viewModel.configureCell(cell:cell, indexPath:indexPath)
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // show the DetailController
         performSegue(withIdentifier: "details", sender:indexPath)
