@@ -20,8 +20,6 @@ class DetailsController: UIViewController {
             lblName.text = "Name : "+selectedVenu.name!
             lblAddress.text = "Address : "+selectedVenu.address!
         }
-        
-        // Do any additional setup after loading the view.
     }
     
     

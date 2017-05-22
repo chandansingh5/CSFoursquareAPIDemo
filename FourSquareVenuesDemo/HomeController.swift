@@ -29,10 +29,8 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-
 class HomeController: UIViewController {
 
-    
     @IBOutlet weak var btnSearch: UIButton!
    
     let locationManager = CLLocationManager()
@@ -41,25 +39,10 @@ class HomeController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // set up location manager
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
-    }
-    
-    
-    @IBAction func btngetCurrentLocationAction(_ sender: Any) {
-        if CLLocationManager.locationServicesEnabled() {
-            switch(CLLocationManager.authorizationStatus()) {
-            case .authorizedWhenInUse:
-                locationManager.startUpdatingLocation()
-            default:
-                showLocationAlert()
-            }
-        } else {
-            showLocationAlert()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,7 +72,21 @@ class HomeController: UIViewController {
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-
+   
+    // MARK: - ButtonAction
+    @IBAction func btngetCurrentLocationAction(_ sender: Any) {
+        if CLLocationManager.locationServicesEnabled() {
+            switch(CLLocationManager.authorizationStatus()) {
+            case .authorizedWhenInUse:
+                locationManager.startUpdatingLocation()
+            default:
+                showLocationAlert()
+            }
+        } else {
+            showLocationAlert()
+        }
+    }
+    
 }
 
 // MARK: - Location manager delegate
