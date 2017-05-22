@@ -30,7 +30,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class HomeController: UIViewController, CLLocationManagerDelegate {
+class HomeController: UIViewController {
 
     
     @IBOutlet weak var btnSearch: UIButton!
@@ -42,13 +42,13 @@ class HomeController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // add action to the coffee button
-        
         // set up location manager
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
     }
+    
+    
     @IBAction func btngetCurrentLocationAction(_ sender: Any) {
         if CLLocationManager.locationServicesEnabled() {
             switch(CLLocationManager.authorizationStatus()) {
@@ -64,7 +64,7 @@ class HomeController: UIViewController, CLLocationManagerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // always make sure the coffeeButton is visible
+        // always make sure the Button is visible
         if btnSearch.isHidden {
             btnSearch.isHidden = false
         }
@@ -73,25 +73,7 @@ class HomeController: UIViewController, CLLocationManagerDelegate {
         flag = true
     }
     
-  
-    
-    // MARK: - Location manager delegate
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // show the activity indicator
-        btnSearch.isHidden = true
-        
-        if locations.last?.timestamp.timeIntervalSinceNow < -30.0 || locations.last?.horizontalAccuracy > 80 {
-            return
-        }
-        // set a flag so segue is only called once
-        if flag {
-            currentLocation = locations.last?.coordinate
-            locationManager.stopUpdatingLocation()
-            flag = false
-            performSegue(withIdentifier: "showSearch", sender: self)
-        }
-    }
-    
+
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Pass the latitude and longitude to the new view controller
@@ -108,4 +90,25 @@ class HomeController: UIViewController, CLLocationManagerDelegate {
         present(alert, animated: true, completion: nil)
     }
 
+}
+
+// MARK: - Location manager delegate
+
+extension HomeController : CLLocationManagerDelegate {
+    
+func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // show the activity indicator
+        btnSearch.isHidden = true
+        if locations.last?.timestamp.timeIntervalSinceNow < -30.0 || locations.last?.horizontalAccuracy > 80 {
+            return
+        }
+        // set a flag so segue is only called once
+        if flag {
+            currentLocation = locations.last?.coordinate
+            locationManager.stopUpdatingLocation()
+            flag = false
+            performSegue(withIdentifier: "showSearch", sender: self)
+        }
+    }
+    
 }

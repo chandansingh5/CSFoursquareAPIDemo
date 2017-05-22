@@ -14,7 +14,7 @@ class SearchController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var viewModel: SerachViewModel!
-
+    
     //var searchResults = [Venue]()
     var currentLocation:CLLocationCoordinate2D!
     

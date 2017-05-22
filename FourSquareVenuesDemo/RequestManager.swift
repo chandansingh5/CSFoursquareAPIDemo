@@ -25,7 +25,7 @@ final class RequestManager{
     private init(){}
     
     //MARK:- Network Call
-     func fetchFromNetwork(forService currentLocation:CLLocationCoordinate2D,completion:@escaping (_ result:AnyObject?,_ sucess:Bool) -> Void){
+    func fetchFromNetwork(forService currentLocation:CLLocationCoordinate2D,completion:@escaping (_ result:AnyObject?,_ sucess:Bool) -> Void){
         let url = "https://api.foursquare.com/v2/venues/search?ll=\(currentLocation.latitude),\(currentLocation.longitude)&v=20160607&intent=checkin&radius=4000&client_id=\(client_id)&client_secret=\(client_secret)"
         let callURL = URL.init(string:url)
         let request = URLRequest.init(url:callURL!)
@@ -41,13 +41,13 @@ final class RequestManager{
             }else{
                 return completion(nil,false)
             }
-
+            
         })
         task.resume()
     }
     
     func parseData(response:[JSON]) -> [Venue]? {
-       var currentVenueArray = [Venue]()
+        var currentVenueArray = [Venue]()
         for venuelist in response {
             currentVenueArray.append(Venue.init(venue:venuelist))
         }

@@ -828,7 +828,7 @@ extension JSON {
         if let errorValue = error, errorValue.code == ErrorNotExist ||
             errorValue.code == ErrorIndexOutOfBounds ||
             errorValue.code == ErrorWrongType {
-                return false
+            return false
         }
         return true
     }
@@ -907,7 +907,7 @@ extension JSON {
     }
     
     public var int: Int?
-    {
+        {
         get
         {
             return self.number?.intValue
